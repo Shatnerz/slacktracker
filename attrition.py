@@ -23,7 +23,7 @@ weekly_data = weekly_data[1:]
 # Plot
 plt.figure(figsize=(10,6))
 weekly_data.plot(kind='bar')
-plt.title('Entries per Week')
+plt.title('Departures per Week')
 plt.xlabel('Week')
 plt.ylabel('Count')
 
