@@ -13,6 +13,10 @@ Use `pyenv` and python 3.11.0 for convenience.
 pyenv virtualenv 3.11.0 slacktrack
 pip install slack_sdk
 pip install GitPython
+
+pip install pandas
+pip install matplotlib
+pip install PyQt5
 ```
 
 Use `ipython3`
