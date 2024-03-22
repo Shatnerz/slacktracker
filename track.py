@@ -143,11 +143,13 @@ def process_data(all_users, path):
     if not os.path.exists(path):
         os.makedirs(path)
 
+    # Set repo first otherwise you'll undo changes that took place
+    raw_repo = get_repo(path)
+
     process_group(humans, 'humans', path)
     process_group(bots, 'bots', path)
 
     # Git commit to track changes
-    raw_repo = get_repo(path)
     commit_changes(raw_repo)
     
     
@@ -162,11 +164,12 @@ def process_group(group, prefix, path):
     def get_data(user):
         updated = user.get("updated")
         human_updated = datetime.fromtimestamp(updated).strftime("%Y-%m-%d %H:%M:%S")
+        profile = user.get("profile", {})
         return [
             user.get("name"),
             user.get("id"),
-            user.get("real_name"),
-            user.get("profile", {}).get("title"),
+            profile.get("real_name"),
+            profile.get("title"),
             user.get("id"),
             updated,
             human_updated,
