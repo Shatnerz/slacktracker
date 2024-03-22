@@ -110,10 +110,16 @@ def commit_changes(repo):
     Commit message will just be a human readable UTC
     timestamp.
     """
-    repo.git.add(A=True)
-    utcnow = datetime.now(UTC)
-    human_time = utcnow.strftime("%Y-%m-%d %H:%M:%S")
-    repo.index.commit(f"Automated commit: {human_time}")
+    changed_files = [item.a_path for item in repo.index.diff(None)] + repo.untracked_files
+    staged_files = [item.a_path for item in repo.index.diff('HEAD')]
+
+    if changed_files or staged_files:
+        repo.git.add(A=True)
+        utcnow = datetime.now(UTC)
+        human_time = utcnow.strftime("%Y-%m-%d %H:%M:%S")
+        repo.index.commit(f"Automated commit: {human_time}")
+    else:
+        print(f"No changes to commit: {repo}")
 
 
 def process_data(all_users, path):
