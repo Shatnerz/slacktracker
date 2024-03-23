@@ -2,5 +2,6 @@
 raw
 data
 creds
-run.sh
 ignore
+logs
+secrets
