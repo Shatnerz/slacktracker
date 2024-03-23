@@ -202,13 +202,15 @@ if __name__ == "__main__":
     # Sort to keep order deterministic and make tracking changes easy
     all_users.sort(key=lambda user: user["name"])
 
-    save_raw_json_data(all_users, "all_users.json")
-
     raw_path = Path(__file__).parent / "raw"
     data_path = Path(__file__).parent / "data"
 
-    # Commit changes to raw data in raw/
+    # need to get repo prior to writing any changes
     raw_repo = get_repo(raw_path)
+
+    save_raw_json_data(all_users, "all_users.json")
+
+    # Commit changes to raw data in raw/
     commit_changes(raw_repo)
 
     # Process into CSVs and commit in data/
